@@ -1,0 +1,32 @@
+version: '3.8'
+services:
+  redis:
+    image: redis:alpine
+    container_name: redis-service
+    ports:
+      - "6379:6379"
+    command: >
+      --requirepass 123456
+  mongodb:
+    image: mongo:latest
+    container_name: mongo-service
+    ports:
+      - "27017:27017"
+    environment:
+      MONGO_INITDB_ROOT_USERNAME: root
+      MONGO_INITDB_ROOT_PASSWORD: 123456
+  postgres:
+    image: postgres:latest
+    container_name: postgres-service
+    ports:
+      - "5432:5432"
+    environment:
+      POSTGRES_USER: root
+      POSTGRES_PASSWORD: 123456
+      PGDATA: /var/lib/postgresql/data/pgdata
+  nginx:
+    build: ./nginx
+    container_name: nginx-service
+    ports:
+      - "8080:80"
+
